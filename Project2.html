@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #game {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+        #feedback {
+            font-size: 18px;
+            margin-top: 10px;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .correct {
+            color: green;
+        }
+        .wrong {
+            color: red;
+        }
+        .bounce {
+            animation: bounce 0.5s;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <h1>Guess the Number!</h1>
+        <p>Enter a number between 1 and 100:</p>
+        <input type="number" id="userInput" min="1" max="100">
+        <button onclick="checkGuess()">Guess</button>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        const targetNumber = Math.floor(Math.random() * 100) + 1;
+        const feedbackElement = document.getElementById('feedback');
+
+        function checkGuess() {
+            const userInput = document.getElementById('userInput').value;
+            const userGuess = Number(userInput);
+
+            feedbackElement.classList.remove('bounce');
+
+            if (userGuess < targetNumber) {
+                feedbackElement.textContent = 'Too low! Try again.';
+                feedbackElement.classList.add('wrong', 'bounce');
+            } else if (userGuess > targetNumber) {
+                feedbackElement.textContent = 'Too high! Try again.';
+                feedbackElement.classList.add('wrong', 'bounce');
+            } else {
+                feedbackElement.textContent = 'Congratulations! You guessed the right number!';
+                feedbackElement.classList.add('correct', 'bounce');
+            }
+        }
+    </script>
+</body>
+</html>
